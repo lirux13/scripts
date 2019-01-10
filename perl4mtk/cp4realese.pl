@@ -1,8 +1,11 @@
 #!/usr/bin/perl -w
+# -*- coding: utf-8 -*-
 
 #
-#by lirux @2014
-#
+# Author     : lirux
+# Date       : 2014
+# Description: æ‰“åŒ…binæ–‡ä»¶
+# 
 
 use strict;
 use warnings;
@@ -31,7 +34,7 @@ if(@ARGV > 0) {
 &read_make_ini;
 my $custom = $make_ini_list{"custom"};
 my $project = $make_ini_list{"project"};
-die "ÕÒ²»µ½±àÒë¼ÇÂ¼" unless (defined $custom && defined $project);
+die "æ‰¾ä¸åˆ°ç¼–è¯‘è®°å½•" unless (defined $custom && defined $project);
 
 &read_custom_make($custom, $project);
 my $paltform = $macro_list{'PLATFORM'};
@@ -42,12 +45,12 @@ print "\n\n";
 
 my $custom_build = "build\\$custom";
 unless (-e $custom_build) {
-	die("ÎÄ¼ş²»´æÔÚ: $custom_build!!!!!\n");
+	die("æ–‡ä»¶ä¸å­˜åœ¨: $custom_build!!!!!\n");
 }
 
 my $verno_file = "make\\verno_$custom\.bld";
 unless (-e "$verno_file") {
-	die("ÎÄ¼ş²»´æÔÚ: $verno_file!!!!!\n");
+	die("æ–‡ä»¶ä¸å­˜åœ¨: $verno_file!!!!!\n");
 }
 &read_verno_file($verno_file);
 my $verno = $verno_list{'VERNO'};
@@ -58,13 +61,13 @@ my $bin = $custom."_".$sub_borad_ver."_".$project."_".$paltform."_".$chip_ver.".
 
 unless (-e "$custom_build\\$bin") {
 	$bin = $custom."_".$sub_borad_ver."_".$project."_".$paltform."_".$chip_ver.".".$verno.".bin";
-	die("ÎÄ¼ş¼Ğ²»´æÔÚ: $bin, ÇëÈ·ÈÏ±àÒëÊÇ·ñ³É¹¦!!!\n");
+	die("æ–‡ä»¶å¤¹ä¸å­˜åœ¨: $bin, è¯·ç¡®è®¤ç¼–è¯‘æ˜¯å¦æˆåŠŸ!!!\n");
 };
 
-print "´ò°üÏîÄ¿: $custom\n";
-print "Èí¼ş°æ±¾ºÅ: $verno\n";
+print "æ‰“åŒ…é¡¹ç›®: $custom\n";
+print "è½¯ä»¶ç‰ˆæœ¬å·: $verno\n";
 
-#Ä¿±êÂ·¾¶
+#ç›®æ ‡è·¯å¾„
 my $date_time = &get_date_time;
 if($cp_type eq "LESS") {
 	$target_path = $target_path."\\".$custom."\\"."$custom\_$date_time\_LESS";
@@ -76,10 +79,10 @@ my $target_path_info = $target_path."\\info";
 
 print "-----------------------------------------------\n\n";
 if(-e $target_path) {
-	die "ÎÄ¼ş¼ĞÒÑ´æÔÚ: $custom\_$date_time\n\n";
+	die "æ–‡ä»¶å¤¹å·²å­˜åœ¨: $custom\_$date_time\n\n";
 }
 else {
-	print "ÕıÔÚ¸´ÖÆÎÄ¼ş...\n";
+	print "æ­£åœ¨å¤åˆ¶æ–‡ä»¶...\n";
 }
 
 opendir (BUILD_HDL, $custom_build) || die "Error in opening dir $custom_build\n";
@@ -96,9 +99,9 @@ foreach my $file (@file_list) {
 		if($file =~ m/\.bin$/) {
 			$copy_flag = 0;
 		}
-		elsif($file =~ m/$verno/) {
-			$copy_flag = 1;
-		}
+		#elsif($file =~ m/$verno/) {
+		#	$copy_flag = 1;
+		#}
 	}
 	elsif(-d $file_path && $file =~ m/$verno/) {
 		$copy_flag = 1;
@@ -137,7 +140,7 @@ foreach my $file (@file_list) {
 	}
 }
 
-#¸´ÖÆÆäËûÎÄ¼ş
+#å¤åˆ¶å…¶ä»–æ–‡ä»¶
 my $file_path = "$custom_build\\log\\ckImgSize.log";
 print "ckImgSize.log\n";
 &sys_copy($file_path, $target_path_info);
@@ -161,16 +164,16 @@ if($cp_type eq "MORE") {
 	$file_path = "$custom_build\\$custom\_$project\.mak";
 	&sys_copy($file_path, $target_path_more);
 }
-print "ÎÄ¼ş¸´ÖÆÍê³É...\n";
-print "-----------------------------------------------\n\n";
+print "Copy done...\n";
+print "-----------------------------------------------\n";
 
 &read_log_ckImgSize($target_path);
 
-print "ÕıÔÚ´ò°ü, ÇëÉÔºò...";
 my $zip_7za = "plutommi\\Customer\\ResGenerator\\7za.exe";
 my $target_zip = $target_path.".zip";
 
 if(-e $zip_7za) {
+	print "Compressing...";
 	#system("start /min $zip_7za a -tzip $target_zip $target_path");
 	system("start $zip_7za a -tzip $target_zip $target_path");
 }
@@ -260,7 +263,7 @@ sub get_date_time() {
 		$date_str = $date_str.$day;
 	}
 
-	#print "µ±Ç°Ê±¼ä: $date_str $hour:$min\n";
+	#print "å½“å‰æ—¶é—´: $date_str $hour:$min\n";
 	
 	$date_str = $date_str."_";
 	if($hour < 10) {
@@ -282,7 +285,7 @@ sub get_date_time() {
 }
 
 sub read_custom_make {
-	(2 == @_) or die "²ÎÊı´íÎó£¬ÇëÊäÈëÏîÄ¿Ãû";
+	(2 == @_) or die "Error para!!!";
 
 	my $mak = ".\\make\\$_[0]_$_[1].mak";
 
@@ -337,7 +340,7 @@ sub read_log_ckImgSize {
 		if($len - $point_index > 2) {
 			$remain = substr($remain, 0, $point_index+3);
 		}
-		print "Ê£Óà¿Õ¼ä: $remain KB (", $max_size - $actual_size, " bytes)\n\n";
+		print "Remain space: $remain KB (", $max_size - $actual_size, " bytes)\n\n";
     }
 }
 

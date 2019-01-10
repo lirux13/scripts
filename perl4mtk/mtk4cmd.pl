@@ -27,7 +27,7 @@ if("" eq $custom) {
 }
 
 unless(-e $target_mak) {
-	die "Ö¸¶¨µÄmakÎÄ¼ş²»´æÔÚ: $target_mak\n\n";
+	die "æŒ‡å®šçš„makæ–‡ä»¶ä¸å­˜åœ¨: $target_mak\n\n";
 }
 
 &read_custom_make($target_mak);
@@ -61,7 +61,7 @@ while(1) {
 		print "    $idx\. $cmd_array[$idx]\n";
 	}
 	print "==============================\n";
-	print "ÇëÑ¡ÔñÃüÁî:";
+	print "è¯·é€‰æ‹©å‘½ä»¤:";
 	
 	my $sel = <STDIN>;
 	$sel =~ s/\n//;
@@ -87,7 +87,7 @@ while(1) {
 		exit(0);
 	}
 	else {
-		print "ÎŞĞ§ÃüÁî!\n"	
+		print "æ— æ•ˆå‘½ä»¤!\n"	
 	}
 	system("PAUSE");
 }
@@ -99,7 +99,7 @@ while(1) {
 # sub
 ########################################################
 sub read_custom_make {
-	die "²ÎÊı´íÎó" if(1 != @_);
+	die "å‚æ•°é”™è¯¯" if(1 != @_);
 	my $mak = $_[0];
 
     open (FILE_HANDLE, "<$mak") or die "Can not open $mak\n";

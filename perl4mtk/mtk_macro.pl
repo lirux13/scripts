@@ -1,8 +1,9 @@
 #!/usr/bin/perl -w
 
 #
-#by lirux
-#
+# Author: lirux
+# Description: 检查mtk feature phone定义的宏生成头文件
+# 
 
 #use Switch;
 use Cwd;
